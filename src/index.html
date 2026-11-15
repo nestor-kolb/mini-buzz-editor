@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mini Buzz Editor</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="core.js"></script><script defer src="frame-editing.js"></script><script defer src="mfp.js"></script><script defer src="project-zip.js"></script>
+<script defer src="usb.js"></script><script defer src="strings.js"></script>
+<script defer src="preview.js"></script><script defer src="playback.js"></script><script defer src="timeline-interaction.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+<header>
+  <div class="brand"><b>MB</b><span>Mini Buzz <strong>Editor</strong></span></div>
+  <input id="title" class="title" autocomplete="off" data-label="projectName">
+  <nav>
+    <button id="new" data-t="newProject"></button>
+    <button id="open" data-t="open"></button>
+    <button id="relinkFolder" data-t="openFolder" hidden></button>
+    <button id="exportProject" data-t="exportProject"></button>
+    <button id="export" class="primary" data-t="export"></button>
+    <details class="device">
+      <summary><span data-t="device"></span><span id="usbState" class="badge"></span></summary>
+      <div class="device-menu">
+        <button id="connect" data-t="connect"></button><button id="storage" data-t="storage"></button>
+        <button id="livePoses" type="button" aria-pressed="false" data-t="livePoses"></button>
+      </div>
+    </details>
+    <button id="language" class="toggle" role="switch" aria-label="English"><span>RU</span><span>EN</span></button>
+  </nav>
+</header>
+<main>
+  <div class="workspace">
+    <section class="preview">
+      <div class="heading"><h2 data-t="preview"></h2></div>
+      <div class="stage">
+        <canvas id="robotPreview" role="img" aria-label="Mini Buzz" data-hover="orbitHint"></canvas>
+      </div>
+      <div class="player">
+        <output id="clock"></output>
+        <button id="play" class="icon" data-icon="play"></button>
+        <button id="fullscreen" class="icon" data-icon="fullscreen" data-tip="fullscreen"></button>
+      </div>
+    </section>
+    <section class="inspector">
+      <div class="heading"><h2 data-t="inspector"></h2><button id="units" class="toggle" role="switch" data-label="units"><span data-t="native"></span><span data-t="degreesPoints"></span></button></div>
+      <div class="frame-heading"><p id="frameInfo"></p><div class="controls">
+        <button id="resetPose" class="icon" data-icon="pose" data-tip="resetPose"></button>
+        <button id="resetTiming" class="icon" data-icon="timer" data-tip="resetTiming"></button>
+        <button id="resetAll" class="icon" data-icon="reset" data-tip="resetAll"></button>
+      </div></div>
+      <div id="properties"></div>
+    </section>
+  </div>
+  <section class="timeline">
+    <div class="heading timeline-bar">
+      <div id="toolbar" class="controls"><button id="addAudio" class="icon" data-icon="addAudio" data-tip="addAudio"></button><button id="add" class="icon" data-icon="add" data-tip="add"></button><button id="duplicate" class="icon" data-icon="duplicate" data-tip="duplicate"></button><button id="copy" class="icon" data-icon="copy" data-tip="copy"></button><button id="paste" class="icon" data-icon="paste" data-tip="paste"></button><button id="delete" class="icon" data-icon="delete" data-tip="delete"></button><button id="group" class="icon" data-icon="group" data-tip="group"></button><button id="rename" class="icon" data-icon="rename" data-tip="rename"></button><button id="ungroup" class="icon" data-icon="ungroup" data-tip="ungroup"></button><button id="undo" class="icon" data-icon="undo" data-tip="undo"></button><button id="redo" class="icon" data-icon="redo" data-tip="redo"></button></div>
+      <label class="zoom"><span data-t="zoom"></span><input id="zoom" type="range" min="-36" max="6" value="0" step="any"><button id="fit" class="icon" data-icon="fit" data-tip="fit"></button></label>
+    </div>
+    <div class="tracks">
+      <div class="track-labels"><span data-t="cursor"></span><span data-t="groups"></span><span data-t="motion"></span><span data-t="audio"></span></div>
+      <div class="scroller" id="scroller"><div class="rail" id="rail">
+        <div id="ruler" class="row ruler" data-label="cursor"></div>
+        <div id="groups" class="row"></div><div id="frames" class="row"></div><div id="audioTrack" class="row"></div>
+        <div id="head"></div><div id="dropMarker" hidden></div><div id="marquee" hidden></div>
+      </div></div>
+    </div>
+  </section>
+  <p id="status" role="status"></p>
+</main>
+<input type="file" id="openFile" hidden accept=".zip,.json,.mfp">
+<input type="file" id="mp3File" hidden accept=".mp3,audio/mpeg">
+<dialog id="audioDialog" aria-labelledby="audioDialogTitle">
+  <form method="dialog">
+    <h2 id="audioDialogTitle" data-t="addAudio"></h2>
+    <p id="audioDialogFile"></p>
+    <p class="hint" data-t="audioPathAuto"></p>
+    <div class="controls">
+      <button value="cancel" data-t="audioDialogCancel" autofocus></button>
+      <button value="add" class="primary" data-t="addAudio"></button>
+    </div>
+  </form>
+</dialog>
+</body></html>
